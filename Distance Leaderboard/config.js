@@ -1,5 +1,5 @@
 module.exports = {
-  path: "../stats",
+  path: "./stats",
   output: "./export",
   usercache: "./usercache.json",
 };

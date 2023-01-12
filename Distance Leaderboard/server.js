@@ -16,18 +16,21 @@ app.get("/", (req, res) => {
     const walk = data.stats["minecraft:custom"]["minecraft:walk_one_cm"];
     const sprint = data.stats["minecraft:custom"]["minecraft:sprint_one_cm"];
     const total = walk + sprint;
-    const uuid = file.split(".")[0];
-    const name = usercache.find((user) => user.uuid === uuid).name;
-
-    table.push({
-      name,
-      walk,
-      sprint,
-      total,
-    });
+    if (!isNaN(total)) {
+      const uuid = file.split(".")[0];
+      const found = usercache.find((user) => user.uuid === uuid);
+      if (found) {
+        const name = found.name;
+        table.push({
+          name,
+          walk,
+          sprint,
+          total,
+        });
+      }
+    }
     table.sort((a, b) => b.total - a.total);
   });
-
   res.send(`
     <style>
     body{
